@@ -2,10 +2,10 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>NEXTATION – Time & Place Blocks (Subject · Verb · Place · Time)</title>
+  <title>NEXTATION – Time & Place (Subject · Verb · Place · Time)</title>
   <style>
     :root {
-      /* NEXTATION WEBSITE — COLOUR SYSTEM */
+      /* Core backgrounds (from NEXTATION colour system) */
       --bg-main: #02030b;
       --bg-gradient: radial-gradient(circle at top, #1c1f3b 0%, #050716 45%, #02030b 100%);
       /* Surfaces / Cards */
@@ -21,19 +21,17 @@
       --muted: rgba(255,255,255,0.65);
       --border-glow: rgba(120,120,255,0.45);
       /* Shadows */
-      --shadow-strong: 0 0 36px rgba(130,80,255,0.6);
       --shadow-soft: 0 0 20px rgba(0,0,0,0.65);
       /* Radii and transitions */
       --radius-lg: 22px;
       --radius-md: 16px;
       --radius-sm: 10px;
       --transition-fast: 0.18s ease-out;
-      --transition-med: 0.28s ease-out;
     }
 
     *{box-sizing:border-box;margin:0;padding:0;}
     body{
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
       background:var(--bg-gradient);
       color:#fff;
       min-height:100vh;
@@ -59,315 +57,182 @@
       position:absolute;
       inset:-1px;
       background:linear-gradient(90deg,#00f5ff,#ff2f92,#ffe25f,#4dff9b);
-      opacity:0.5;
+      opacity:.5;
       mix-blend-mode:screen;
       pointer-events:none;
       z-index:-1;
     }
-    .header-main{
-      display:flex;
-      align-items:center;
-      gap:18px;
-    }
+    .header-main{display:flex;align-items:center;gap:18px;}
     .teacher-orb{
-      width:64px;
-      height:64px;
-      border-radius:50%;
+      width:64px;height:64px;border-radius:50%;
       background:radial-gradient(circle,#ffffff 0%,#00fff0 35%,#ff2f92 70%,#02030b 100%);
-      box-shadow:0 0 24px rgba(0,255,255,0.7),0 0 32px rgba(255,0,160,0.55);
+      box-shadow:0 0 24px rgba(0,255,255,.7),0 0 32px rgba(255,0,160,.55);
       flex-shrink:0;
     }
     .brand-title{
-      font-size:1.4rem;
+      font-size:1.4rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
       background:linear-gradient(90deg,#4ef2ff,#ff2f92);
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-      font-weight:700;
-      letter-spacing:0.06em;
-      text-transform:uppercase;
+      -webkit-background-clip:text;background-clip:text;color:transparent;
     }
-    .brand-sub{
-      color:var(--muted);
-      font-size:0.9rem;
-      margin-top:2px;
-    }
+    .brand-sub{color:var(--muted);font-size:.9rem;margin-top:2px;}
     .lesson-title{
-      margin-top:10px;
-      font-size:1.25rem;
-      color:var(--accent-cyan);
-      text-shadow:0 0 12px rgba(78,242,255,0.5);
+      margin-top:10px;font-size:1.25rem;
+      color:var(--accent-cyan);text-shadow:0 0 12px rgba(78,242,255,.5);
     }
+
     .controls-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:10px;
-      font-size:0.9rem;
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;font-size:.9rem;
     }
     .small-btn{
-      padding:6px 12px;
-      border-radius:999px;
-      border:1px dashed rgba(255,255,255,0.35);
-      background:transparent;
-      color:#fff;
-      cursor:pointer;
-      font-size:0.8rem;
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      transition:transform var(--transition-fast),box-shadow var(--transition-fast),border-color var(--transition-fast),background var(--transition-fast);
+      padding:6px 12px;border-radius:999px;
+      border:1px dashed rgba(255,255,255,.35);
+      background:transparent;color:#fff;cursor:pointer;
+      font-size:.8rem;display:inline-flex;align-items:center;gap:6px;
+      transition:all var(--transition-fast);
     }
     .small-btn:hover{
-      transform:scale(1.03);
       border-color:var(--accent-cyan);
-      box-shadow:0 0 16px rgba(78,242,255,0.5);
-      background:rgba(4,10,40,0.9);
+      box-shadow:0 0 16px rgba(78,242,255,.5);
+      background:rgba(4,10,40,.9);
     }
 
     /* TABS */
     .tabs{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin:18px 0 16px;
+      display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 16px;
     }
     .tab{
-      position:relative;
-      padding:9px 14px;
-      border-radius:var(--radius-md);
-      background:radial-gradient(circle at top,rgba(255,255,255,0.09),rgba(7,10,28,0.96));
-      border:1px solid rgba(130,140,200,0.4);
-      color:#fff;
-      font-size:0.9rem;
-      cursor:pointer;
+      padding:9px 14px;border-radius:var(--radius-md);
+      background:radial-gradient(circle at top,rgba(255,255,255,.09),rgba(7,10,28,.96));
+      border:1px solid rgba(130,140,200,.4);
+      color:#fff;font-size:.9rem;cursor:pointer;
+      display:inline-flex;align-items:center;gap:6px;
       transition:all var(--transition-fast);
     }
-    .tab span.icon{margin-right:6px;}
     .tab:hover{
-      border-color:rgba(120,120,255,0.6);
-      box-shadow:0 0 20px rgba(120,120,255,0.35);
+      border-color:rgba(120,120,255,.6);
+      box-shadow:0 0 18px rgba(120,120,255,.35);
     }
     .tab.active{
-      background:radial-gradient(circle at top,rgba(255,255,255,0.15),rgba(21,13,51,0.98));
-      border-color:rgba(103,255,196,0.9);
-      box-shadow:0 0 24px rgba(79,255,204,0.55);
+      border-color:rgba(10,220,255,.95);
+      box-shadow:0 0 22px rgba(78,242,255,.7);
+      background:radial-gradient(circle at top,#111633,#050716);
     }
-    .tab.completed::after{
-      content:"✓";
-      position:absolute;
-      top:-6px;
-      right:-6px;
-      width:18px;
-      height:18px;
-      border-radius:50%;
-      background:var(--accent-green);
-      color:#02030b;
-      font-size:0.7rem;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow:0 0 10px rgba(77,255,179,0.9);
-    }
+    .tab .icon{font-size:1rem;}
 
-    /* CARD */
-    .card{
-      position:relative;
+    /* PANELS */
+    .panel{
+      display:none;
+      background:var(--card-bg);
       border-radius:var(--radius-lg);
-      background:linear-gradient(135deg, rgba(13,16,40,0.98), rgba(6,8,26,0.98));
-      padding:20px 22px 22px;
-      border:1px solid rgba(120,120,255,0.32);
+      border:1px solid rgba(120,120,255,.4);
+      padding:18px 20px 20px;
       box-shadow:var(--shadow-soft);
-      overflow:hidden;
-      min-height:260px;
     }
-    .card::before{
-      content:"";
-      position:absolute;
-      top:-40%;
-      left:-20%;
-      width:280px;
-      height:280px;
-      background:radial-gradient(circle at top left, rgba(87,57,255,0.35), transparent 58%);
-      pointer-events:none;
-    }
-    .card-inner{position:relative;z-index:1;}
+    .panel.active{display:block;}
 
-    h2.section-title{
-      font-size:1.1rem;
-      color:var(--accent-cyan);
-      margin-bottom:6px;
+    .sentence{
+      font-size:1.1rem;margin-bottom:8px;
     }
-    p.section-sub{
-      font-size:0.92rem;
-      color:var(--muted);
-      margin-bottom:12px;
-      line-height:1.45;
+    .sentence strong{color:var(--accent-yello);}
+    .blocks-line{
+      margin:8px 0 6px;
+      font-family:"SF Mono","Consolas","Menlo",monospace;
+      font-size:.95rem;color:var(--accent-green);
     }
-    .pill-tag{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:4px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,0.18);
-      font-size:0.75rem;
-      color:var(--muted);
-      margin-right:6px;
-      margin-bottom:6px;
+    .pill-row{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 6px;}
+    .pill{
+      border-radius:999px;padding:4px 10px;
+      border:1px solid rgba(130,140,200,.6);
+      font-size:.8rem;
+      background:radial-gradient(circle at top,rgba(255,255,255,.08),rgba(8,10,25,.96));
     }
-    .pill-tag span.dot{
-      width:7px;
-      height:7px;
-      border-radius:50%;
-      background:var(--accent-cyan);
+    .voice-row{
+      margin-top:10px;display:flex;flex-wrap:wrap;gap:10px;
+      align-items:center;font-size:.9rem;color:var(--muted);
     }
-
-    /* Blocks */
-    .block-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin:10px 0 14px;
-    }
-    .block{
-      background:var(--card-soft-bg);
-      border-radius:var(--radius-md);
-      padding:8px 10px;
-      border:1px solid rgba(165,170,255,0.45);
-      min-width:90px;
-      text-align:center;
-      box-shadow:0 0 12px rgba(40,80,255,0.35);
-    }
-    .block-label{
-      display:block;
-      font-size:0.7rem;
-      color:var(--muted);
-      margin-bottom:4px;
-      text-transform:uppercase;
-      letter-spacing:0.06em;
-    }
-    .block-value{
-      font-size:0.96rem;
-      font-weight:600;
-    }
-
-    .example-en{
-      font-size:1rem;
-      margin-bottom:4px;
-    }
-    .example-pt{
-      font-size:0.9rem;
-      color:var(--muted);
-      margin-bottom:10px;
-    }
-    .tip-box{
-      border-left:3px solid var(--accent-yello);
-      padding-left:10px;
-      margin:8px 0 10px;
-      font-size:0.9rem;
-      color:var(--muted);
-    }
-    .play-btn{
-      margin-top:6px;
-      padding:6px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,0.3);
-      background:rgba(12,14,36,0.9);
-      color:#fff;
-      cursor:pointer;
-      font-size:0.8rem;
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
+    .voice-btn{
+      padding:6px 10px;border-radius:999px;
+      border:none;background:var(--accent-pink);
+      color:#02030b;cursor:pointer;font-size:.8rem;
+      display:inline-flex;align-items:center;gap:6px;
+      box-shadow:0 0 14px rgba(255,47,146,.7);
       transition:all var(--transition-fast);
     }
-    .play-btn:hover{
-      border-color:var(--accent-pink);
-      box-shadow:0 0 16px rgba(255,47,146,0.6);
-      transform:translateY(-1px);
+    .voice-btn:hover{
+      filter:brightness(1.1);
+      box-shadow:0 0 18px rgba(255,47,146,.9);
     }
 
-    /* Practice */
-    .practice-select,.practice-input{
-      margin:4px 0 10px;
-      background:rgba(5,8,28,0.9);
+    .steps-title{
+      margin-top:14px;margin-bottom:4px;
+      font-size:.95rem;color:var(--accent-cyan);
+    }
+    .steps-list{font-size:.9rem;color:var(--muted);}
+    .step-item{display:flex;gap:8px;margin-bottom:4px;}
+    .step-badge{
+      width:18px;height:18px;border-radius:50%;
+      background:var(--accent-purple);color:#02030b;
+      font-size:.75rem;display:flex;align-items:center;justify-content:center;
+    }
+
+    /* EXERCISE */
+    .exercise-box{
+      margin-top:16px;padding:12px 12px 14px;
       border-radius:var(--radius-md);
-      border:1px solid rgba(150,150,255,0.5);
-      color:#fff;
-      padding:6px 10px;
-      font-size:0.9rem;
-      width:100%;
+      background:var(--card-soft-bg);
+      border:1px dashed rgba(120,120,255,.6);
     }
-    .practice-select:focus,.practice-input:focus{
-      outline:none;
-      border-color:var(--accent-cyan);
-      box-shadow:0 0 16px rgba(78,242,255,0.5);
+    .exercise-title{
+      font-size:.95rem;color:var(--accent-yello);margin-bottom:6px;
     }
+    .exercise-row{
+      display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px;font-size:.85rem;
+    }
+    .exercise-row select,
+    .exercise-row input{
+      padding:4px 8px;border-radius:8px;border:1px solid rgba(160,160,220,.7);
+      background:#050716;color:#fff;font-size:.85rem;
+    }
+    .exercise-row input{min-width:260px;}
     .feedback{
-      margin-top:6px;
-      font-size:0.9rem;
-      min-height:18px;
+      margin-top:6px;font-size:.85rem;
     }
 
     .footer-nav{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      margin-top:18px;
+      margin-top:14px;display:flex;justify-content:space-between;align-items:center;
     }
     .primary-btn,.secondary-btn{
-      flex:1;
-      padding:10px 14px;
-      border-radius:var(--radius-md);
-      border:1px solid rgba(255,255,255,0.25);
-      font-size:0.9rem;
-      cursor:pointer;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
+      padding:8px 16px;border-radius:999px;cursor:pointer;font-size:.9rem;
+      border:1px solid rgba(255,255,255,.45);background:transparent;color:#fff;
+      display:inline-flex;align-items:center;gap:6px;
       transition:all var(--transition-fast);
     }
     .primary-btn{
-      background:linear-gradient(135deg,#ff2f92,#4ef2ff);
-      color:#02030b;
-      font-weight:600;
-      box-shadow:0 0 18px rgba(255,47,146,0.55);
+      background:linear-gradient(90deg,#4ef2ff,#ff2f92);
+      border:none;color:#02030b;font-weight:600;
+      box-shadow:0 0 20px rgba(78,242,255,.6);
     }
     .primary-btn:hover{
-      transform:translateY(-1px) scale(1.01);
-      box-shadow:0 0 24px rgba(255,47,146,0.8);
-    }
-    .secondary-btn{
-      background:rgba(10,12,30,0.96);
-      color:#fff;
+      filter:brightness(1.05);
+      box-shadow:0 0 26px rgba(78,242,255,.9);
     }
     .secondary-btn:hover{
       border-color:var(--accent-cyan);
-      box-shadow:0 0 14px rgba(78,242,255,0.5);
-      transform:translateY(-1px);
+      box-shadow:0 0 16px rgba(78,242,255,.5);
+      background:rgba(4,10,40,.9);
     }
 
     .export-bar{
-      margin-top:16px;
-      font-size:0.85rem;
-      color:var(--muted);
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      align-items:center;
+      margin-top:14px;padding:8px 10px;border-radius:var(--radius-md);
+      border:1px dashed rgba(130,140,200,.5);
+      background:rgba(8,12,30,.85);font-size:.85rem;
+      display:flex;align-items:center;gap:10px;
     }
     .footer-meta{
-      margin-top:12px;
-      font-size:0.8rem;
-      color:var(--muted);
+      margin-top:10px;font-size:.8rem;color:var(--muted);
       text-align:right;
     }
-    .brand{
-      color:var(--accent-cyan);
-      font-weight:600;
-    }
+    .footer-meta .brand{color:var(--accent-cyan);}
   </style>
 </head>
 <body>
@@ -377,348 +242,183 @@
       <div class="teacher-orb"></div>
       <div>
         <div class="brand-title">NEXTATION</div>
-        <div class="brand-sub">Time & Place Blocks – Subject · Verb · Place · Time (ADHD‑friendly)</div>
-        <div class="lesson-title">
-          3️⃣ Time & Place – “cola visual”: S  → V  → Place  → Time
-        </div>
+        <div class="brand-sub">Time & Place – Subject · Verb · Place · Time</div>
+        <div class="lesson-title">3️⃣ Time & Place (Add Extra Blocks)</div>
       </div>
-    </div>
-    <div class="controls-row">
-      <button class="small-btn" onclick="window.print()">📄 Exportar em PDF</button>
-      <span style="font-size:0.8rem;color:var(--muted);">
-        Dica: imagine sua frase em blocos. É nosso: um bloco de cada vez.
-      </span>
     </div>
   </header>
 
-  <nav class="tabs" aria-label="Sentence tabs">
+  <!-- TABS -->
+  <nav class="tabs">
     <button class="tab active" data-tab="overview" onclick="showTab('overview')">
-      <span class="icon">🧠</span>Overview
+      <span class="icon">🧠</span> Overview
     </button>
-    <button class="tab" data-tab="school" onclick="showTab('school')">
-      <span class="icon">🏫</span>I go to school every day
+    <button class="tab" data-tab="i" onclick="showTab('i')">
+      <span class="icon">🏫</span> I go to school…
     </button>
-    <button class="tab" data-tab="office" onclick="showTab('office')">
-      <span class="icon">💼</span>She works at the office
+    <button class="tab" data-tab="they" onclick="showTab('they')">
+      <span class="icon">🌙</span> They study English…
     </button>
-    <button class="tab" data-tab="lunch" onclick="showTab('lunch')">
-      <span class="icon">🍽️</span>We have lunch at 1 pm
-    </button>
-    <button class="tab" data-tab="study-night" onclick="showTab('study-night')">
-      <span class="icon">🌙</span>They study English at night
-    </button>
-    <button class="tab" data-tab="football" onclick="showTab('football')">
-      <span class="icon">⚽</span>He plays football on Sundays
-    </button>
-    <button class="tab" data-tab="practice" onclick="showTab('practice')">
-      <span class="icon">🧪</span>Practice
+    <button class="tab" data-tab="he" onclick="showTab('he')">
+      <span class="icon">⚽</span> He plays football…
     </button>
   </nav>
 
-  <main class="card">
-    <!-- OVERVIEW -->
-    <section id="tab-overview" class="card-inner">
-      <h2 class="section-title">How to add Time & Place to your sentence</h2>
-      <p class="section-sub">
-        For ADHD brains, we keep one simple **linha do tempo**:
-        <strong>Subject → Verb → Place → Time</strong> (most of the time).
+  <main>
+    <!-- OVERVIEW + EXERCISE -->
+    <section id="panel-overview" class="panel active">
+      <div class="sentence">
+        We always think in <strong>blocks</strong>: Subject → Verb → Place → Time.  
+        Em português: Sujeito → Verbo → Lugar → Tempo.
+      </div>
+      <p style="font-size:.9rem;color:var(--muted);margin-bottom:10px;">
+        Imagine que você está explicando sua rotina pra um gringo. Se você falar fora dessa ordem,
+        ele trava. Então a gente treina sempre nessa sequência, até ficar automático. É nosso. 😉
       </p>
 
-      <div class="block-row">
-        <div class="block">
-          <span class="block-label">Subject</span>
-          <span class="block-value">I / You / He / She / We / They</span>
+      <div class="exercise-box">
+        <div class="exercise-title">📝 Exercise – Monte a frase na ordem certa</div>
+        <p style="font-size:.85rem;margin-bottom:6px;">
+          1) Escolha os blocos. 2) Escreva a frase completa em inglês. 3) Clique em “Check”.
+        </p>
+        <div class="exercise-row">
+          <label>Subject:
+            <select id="ex-subject">
+              <option value="">--</option>
+              <option value="I">I</option>
+              <option value="They">They</option>
+              <option value="He">He</option>
+            </select>
+          </label>
+          <label>Verb:
+            <select id="ex-verb">
+              <option value="">--</option>
+              <option value="go">go</option>
+              <option value="study">study</option>
+              <option value="play">play</option>
+            </select>
+          </label>
+          <label>Place:
+            <select id="ex-place">
+              <option value="">--</option>
+              <option value="to school">to school</option>
+              <option value="English">English</option>
+              <option value="football">football</option>
+            </select>
+          </label>
+          <label>Time:
+            <select id="ex-time">
+              <option value="">--</option>
+              <option value="every day">every day</option>
+              <option value="at night">at night</option>
+              <option value="on Sundays">on Sundays</option>
+            </select>
+          </label>
         </div>
-        <div class="block">
-          <span class="block-label">Verb</span>
-          <span class="block-value">go, work, have, study, play...</span>
+
+        <div class="exercise-row">
+          <label style="flex:1;">Write the sentence:
+            <input id="ex-sentence" type="text" placeholder="Ex: I go to school every day.">
+          </label>
         </div>
-        <div class="block">
-          <span class="block-label">Place</span>
-          <span class="block-value">to school, at the office...</span>
-        </div>
-        <div class="block">
-          <span class="block-label">Time</span>
-          <span class="block-value">every day, at 1 pm, at night...</span>
-        </div>
+        <button class="small-btn" onclick="checkExercise()">✅ Check</button>
+        <div id="ex-feedback" class="feedback"></div>
       </div>
-
-      <p class="example-en"><strong>I go to school every day.</strong></p>
-      <p class="example-pt">Eu vou para a escola todos os dias.</p>
-
-      <div class="tip-box">
-        <strong>Tip (cola mental):</strong> pensa em 4 caixinhas na sua cabeça:
-        <br>1) Quem? 2) Faz o quê? 3) Onde? 4) Quando?
-        <br>Se não lembrar da regra “perfeita”, usa essa sequência básica. Vai funcionar em 99% dos casos simples.
-      </div>
-
-      <button class="play-btn" onclick="speak('I go to school every day.')">
-        🔊 Play – I go to school every day
-      </button>
     </section>
 
-    <!-- I GO TO SCHOOL EVERY DAY -->
-    <section id="tab-school" class="card-inner" style="display:none;">
-      <h2 class="section-title">Sentence 1 – I go to school every day</h2>
-      <p class="section-sub">
-        Português: <em>Eu vou para a escola todos os dias.</em><br>
-        Aqui você vê **lugar + tempo** juntos, bem claro.
-      </p>
+    <!-- I GO TO SCHOOL -->
+    <section id="panel-i" class="panel">
+      <div class="sentence">
+        <strong>Sentence:</strong> I go to school every day.
+      </div>
+      <div class="blocks-line">
+        Blocks: I | go | to school | every day
+      </div>
+      <p>Portuguese: <strong>Eu vou para a escola todos os dias.</strong></p>
 
-      <div class="block-row">
-        <div class="block">
-          <span class="block-label">Subject</span>
-          <span class="block-value">I</span>
-        </div>
-        <div class="block">
-          <span class="block-label">Verb</span>
-          <span class="block-value">go</span>
-        </div>
-        <div class="block">
-          <span class="block-label">Place</span>
-          <span class="block-value">to school</span>
-        </div>
-        <div class="block">
-          <span class="block-label">Time</span>
-          <span class="block-value">every day</span>
-        </div>
+      <div class="pill-row">
+        <div class="pill"><strong>Subject</strong> → <code>I</code></div>
+        <div class="pill"><strong>Verb</strong> → <code>go</code></div>
+        <div class="pill"><strong>Place</strong> → <code>to school</code></div>
+        <div class="pill"><strong>Time</strong> → <code>every day</code></div>
       </div>
 
-      <p class="example-en"><strong>I go to school every day.</strong></p>
-      <p class="example-pt">Eu vou para a escola todos os dias.</p>
-
-      <div class="tip-box">
-        <strong>Tip:</strong> Adverbs like <em>every day, usually, sometimes</em> usually come at the end:
-        <br><strong>I go to school every day.</strong>
+      <div class="voice-row">
+        <button class="voice-btn" onclick="speak('I go to school every day.')">🔊 Play</button>
+        <span>Imagina você explicando sua rotina pra um americano: 
+          <em>I go to school every day.</em> – simples, direto.</span>
       </div>
 
-      <button class="play-btn" onclick="speak('I go to school every day.')">
-        🔊 Play – I go to school every day
-      </button>
+      <h3 class="steps-title">Walkthrough</h3>
+      <div class="steps-list">
+        <div class="step-item"><div class="step-badge">1</div><div><strong>I</strong> → você mesmo, “eu”.</div></div>
+        <div class="step-item"><div class="step-badge">2</div><div><strong>go</strong> → ir, movimento.</div></div>
+        <div class="step-item"><div class="step-badge">3</div><div><strong>to school</strong> → lugar para onde você vai.</div></div>
+        <div class="step-item"><div class="step-badge">4</div><div><strong>every day</strong> → quando: frequência diária.</div></div>
+      </div>
     </section>
 
-    <!-- SHE WORKS AT THE OFFICE -->
-    <section id="tab-office" class="card-inner" style="display:none;">
-      <h2 class="section-title">Sentence 2 – She works at the office</h2>
-      <p class="section-sub">
-        Português: <em>Ela trabalha no escritório.</em><br>
-        Aqui focamos em **lugar**. Tempo pode aparecer depois se você quiser.
-      </p>
+    <!-- THEY STUDY ENGLISH -->
+    <section id="panel-they" class="panel">
+      <div class="sentence">
+        <strong>Sentence:</strong> They study English at night.
+      </div>
+      <div class="blocks-line">
+        Blocks: They | study | English | at night
+      </div>
+      <p>Portuguese: <strong>Eles estudam inglês à noite.</strong></p>
 
-      <div class="block-row">
-        <div class="block">
-          <span class="block-label">Subject</span>
-          <span class="block-value">She</span>
-        </div>
-        <div class="block">
-          <span class="block-label">Verb</span>
-          <span class="block-value">works</span>
-        </div>
-        <div class="block">
-          <span class="block-label">Place</span>
-          <span class="block-value">at the office</span>
-        </div>
+      <div class="pill-row">
+        <div class="pill"><strong>Subject</strong> → <code>They</code></div>
+        <div class="pill"><strong>Verb</strong> → <code>study</code></div>
+        <div class="pill"><strong>Place</strong> → <code>English</code> (a matéria / idioma)</div>
+        <div class="pill"><strong>Time</strong> → <code>at night</code></div>
       </div>
 
-      <p class="example-en"><strong>She works at the office.</strong></p>
-      <p class="example-pt">Ela trabalha no escritório.</p>
-
-      <div class="tip-box">
-        <strong>Tip:</strong> He / She / It → verb with <strong>-s</strong>:
-        <br><strong>She work<strong>s</strong> at the office.</strong>
+      <div class="voice-row">
+        <button class="voice-btn" onclick="speak('They study English at night.')">🔊 Play</button>
+        <span>Imagina um grupo fazendo cursinho noturno: 
+          <em>They study English at night.</em></span>
       </div>
 
-      <button class="play-btn" onclick="speak('She works at the office.')">
-        🔊 Play – She works at the office
-      </button>
+      <h3 class="steps-title">Walkthrough</h3>
+      <div class="steps-list">
+        <div class="step-item"><div class="step-badge">1</div><div><strong>They</strong> → eles / elas, um grupo.</div></div>
+        <div class="step-item"><div class="step-badge">2</div><div><strong>study</strong> → verbo “estudar”.</div></div>
+        <div class="step-item"><div class="step-badge">3</div><div><strong>English</strong> → o que eles estudam.</div></div>
+        <div class="step-item"><div class="step-badge">4</div><div><strong>at night</strong> → quando: à noite.</div></div>
+      </div>
     </section>
 
-    <!-- WE HAVE LUNCH AT 1 PM -->
-    <section id="tab-lunch" class="card-inner" style="display:none;">
-      <h2 class="section-title">Sentence 3 – We have lunch at 1 pm</h2>
-      <p class="section-sub">
-        Português: <em>Nós almoçamos à 1 hora.</em><br>
-        Aqui é uma frase de **tempo específico**.
-      </p>
+    <!-- HE PLAYS FOOTBALL -->
+    <section id="panel-he" class="panel">
+      <div class="sentence">
+        <strong>Sentence:</strong> He plays football on Sundays.
+      </div>
+      <div class="blocks-line">
+        Blocks: He | plays | football | on Sundays
+      </div>
+      <p>Portuguese: <strong>Ele joga futebol aos domingos.</strong></p>
 
-      <div class="block-row">
-        <div class="block">
-          <span class="block-label">Subject</span>
-          <span class="block-value">We</span>
-        </div>
-        <div class="block">
-          <span class="block-label">Verb</span>
-          <span class="block-value">have lunch</span>
-        </div>
-        <div class="block">
-          <span class="block-label">Time</span>
-          <span class="block-value">at 1 pm</span>
-        </div>
+      <div class="pill-row">
+        <div class="pill"><strong>Subject</strong> → <code>He</code></div>
+        <div class="pill"><strong>Verb</strong> → <code>plays</code></div>
+        <div class="pill"><strong>Place</strong> → <code>football</code> (atividade)</div>
+        <div class="pill"><strong>Time</strong> → <code>on Sundays</code></div>
       </div>
 
-      <p class="example-en"><strong>We have lunch at 1 pm.</strong></p>
-      <p class="example-pt">Nós almoçamos à 1 hora.</p>
-
-      <div class="tip-box">
-        <strong>Tip:</strong> Horário → normalmente com <strong>at</strong>:
-        <br><strong>at 1 pm, at 7:30, at midnight</strong>.
+      <div class="voice-row">
+        <button class="voice-btn" onclick="speak('He plays football on Sundays.')">🔊 Play</button>
+        <span>Imagina o amigo da pelada de domingo. Domingo é dia de futebol. ⚽</span>
       </div>
 
-      <button class="play-btn" onclick="speak('We have lunch at 1 pm.')">
-        🔊 Play – We have lunch at 1 pm
-      </button>
-    </section>
-
-    <!-- THEY STUDY ENGLISH AT NIGHT -->
-    <section id="tab-study-night" class="card-inner" style="display:none;">
-      <h2 class="section-title">Sentence 4 – They study English at night</h2>
-      <p class="section-sub">
-        Português: <em>Eles estudam inglês à noite.</em><br>
-        Lugar + tempo; rotina típica de quem trabalha de dia e estuda à noite.
-      </p>
-
-      <div class="block-row">
-        <div class="block">
-          <span class="block-label">Subject</span>
-          <span class="block-value">They</span>
-        </div>
-        <div class="block">
-          <span class="block-label">Verb</span>
-          <span class="block-value">study</span>
-        </div>
-        <div class="block">
-          <span class="block-label">Object / Place</span>
-          <span class="block-value">English</span>
-        </div>
-        <div class="block">
-          <span class="block-label">Time</span>
-          <span class="block-value">at night</span>
-        </div>
+      <h3 class="steps-title">Walkthrough</h3>
+      <div class="steps-list">
+        <div class="step-item"><div class="step-badge">1</div><div><strong>He</strong> → ele, um cara específico.</div></div>
+        <div class="step-item"><div class="step-badge">2</div><div><strong>plays</strong> → <code>play</code> + <strong>s</strong> porque é <strong>he</strong> (3ª pessoa).</div></div>
+        <div class="step-item"><div class="step-badge">3</div><div><strong>football</strong> → esporte que ele pratica.</div></div>
+        <div class="step-item"><div class="step-badge">4</div><div><strong>on Sundays</strong> → tempo: aos domingos.</div></div>
       </div>
-
-      <p class="example-en"><strong>They study English at night.</strong></p>
-      <p class="example-pt">Eles estudam inglês à noite.</p>
-
-      <div class="tip-box">
-        <strong>Tip:</strong> Partes do dia → normalmente com <strong>in / at</strong>:
-        <br><strong>in the morning, in the afternoon, at night</strong>.
-      </div>
-
-      <button class="play-btn" onclick="speak('They study English at night.')">
-        🔊 Play – They study English at night
-      </button>
-    </section>
-
-    <!-- HE PLAYS FOOTBALL ON SUNDAYS -->
-    <section id="tab-football" class="card-inner" style="display:none;">
-      <h2 class="section-title">Sentence 5 – He plays football on Sundays</h2>
-      <p class="section-sub">
-        Português: <em>Ele joga futebol aos domingos.</em><br>
-        Aqui é rotina + dia da semana.
-      </p>
-
-      <div class="block-row">
-        <div class="block">
-          <span class="block-label">Subject</span>
-          <span class="block-value">He</span>
-        </div>
-        <div class="block">
-          <span class="block-label">Verb</span>
-          <span class="block-value">plays</span>
-        </div>
-        <div class="block">
-          <span class="block-label">Object</span>
-          <span class="block-value">football</span>
-        </div>
-        <div class="block">
-          <span class="block-label">Time</span>
-          <span class="block-value">on Sundays</span>
-        </div>
-      </div>
-
-      <p class="example-en"><strong>He plays football on Sundays.</strong></p>
-      <p class="example-pt">Ele joga futebol aos domingos.</p>
-
-      <div class="tip-box">
-        <strong>Tip:</strong> Dias da semana → <strong>on</strong>:
-        <br><strong>on Monday, on Friday, on Sundays</strong>.
-      </div>
-
-      <button class="play-btn" onclick="speak('He plays football on Sundays.')">
-        🔊 Play – He plays football on Sundays
-      </button>
-    </section>
-
-    <!-- PRACTICE -->
-    <section id="tab-practice" class="card-inner" style="display:none;">
-      <h2 class="section-title">Practice – Build your own Time & Place sentence</h2>
-      <p class="section-sub">
-        Agora é você: escolha cada bloco e depois escreva a frase completa.
-        Pensa sempre: <strong>Subject → Verb → Place → Time</strong>.
-      </p>
-
-      <div class="pill-tag">
-        <span class="dot"></span>1. Subject (quem?)
-      </div>
-      <select id="p-subject" class="practice-select">
-        <option value="">-- choose subject --</option>
-        <option value="I">I</option>
-        <option value="You">You</option>
-        <option value="He">He</option>
-        <option value="She">She</option>
-        <option value="We">We</option>
-        <option value="They">They</option>
-      </select>
-
-      <div class="pill-tag">
-        <span class="dot"></span>2. Verb (ação – base form)
-      </div>
-      <select id="p-verb" class="practice-select">
-        <option value="">-- choose verb --</option>
-        <option value="go">go</option>
-        <option value="work">work</option>
-        <option value="have lunch">have lunch</option>
-        <option value="study">study</option>
-        <option value="play">play</option>
-      </select>
-
-      <div class="pill-tag">
-        <span class="dot"></span>3. Place (onde?)
-      </div>
-      <select id="p-place" class="practice-select">
-        <option value="">-- choose place --</option>
-        <option value="to school">to school</option>
-        <option value="at the office">at the office</option>
-        <option value="at home">at home</option>
-        <option value="at the gym">at the gym</option>
-        <option value="">(no place)</option>
-      </select>
-
-      <div class="pill-tag">
-        <span class="dot"></span>4. Time (quando?)
-      </div>
-      <select id="p-time" class="practice-select">
-        <option value="">-- choose time --</option>
-        <option value="every day">every day</option>
-        <option value="on Mondays">on Mondays</option>
-        <option value="at 7 pm">at 7 pm</option>
-        <option value="at night">at night</option>
-        <option value="">(no time)</option>
-      </select>
-
-      <p class="section-sub">
-        Agora escreva sua frase completa aqui embaixo.  
-        Lembre: He / She / It → verbo com <strong>-s</strong> (works, plays, goes).
-      </p>
-      <input id="p-sentence" class="practice-input" placeholder="Ex.: She works at the office.">
-
-      <button class="primary-btn" onclick="checkPractice()">✅ Check my sentence</button>
-      <div id="p-feedback" class="feedback"></div>
-
-      <p class="section-sub" style="margin-top:10px;">
-        Quando ficar verde, repete 3 vezes em voz alta.  
-        Ideia: treinar o cérebro a seguir sempre a linha: S → V → Place → Time.
-      </p>
     </section>
   </main>
 
@@ -728,50 +428,55 @@
   </div>
 
   <div class="export-bar">
-    <span>📋 Copy to spreadsheet:</span>
-    <button class="small-btn" onclick="copyToSpreadsheet()">Copy lesson text</button>
-    <span>• 📄 PDF: use “Exportar em PDF” no topo (print do navegador).</span>
+    <span>📋 Copiar para planilha:</span>
+    <button class="small-btn" onclick="copyToSpreadsheet()">Copiar conteúdo</button>
   </div>
 
   <footer class="footer-meta">
-    Made for <span class="brand">NEXTATION</span> – Time & Place in glowing blocks, do jeito que o brasileiro pensa. 🚀
+    <span class="brand">NEXTATION</span> · Time & Place em blocos. É nosso. 🚀
   </footer>
 </div>
 
 <script>
-  const tabOrder = ['overview','school','office','lunch','study-night','football','practice'];
+  const tabOrder = ['overview','i','they','he'];
 
   function showTab(id){
-    document.querySelectorAll('.card-inner').forEach(el => el.style.display='none');
-    const target = document.getElementById('tab-'+id);
-    if(target) target.style.display='block';
-    document.querySelectorAll('.tab').forEach(t=>{
-      const isActive = t.dataset.tab === id;
-      t.classList.toggle('active', isActive);
-      if(isActive) t.classList.add('completed');
-      t.setAttribute('aria-selected', isActive ? 'true' : 'false');
-    });
+    const panels = document.querySelectorAll('.panel');
+    for(let i=0;i<panels.length;i++){
+      const p = panels[i];
+      p.classList.toggle('active', p.id === 'panel-' + id);
+    }
+
+    const tabs = document.querySelectorAll('.tab');
+    for(let i=0;i<tabs.length;i++){
+      const t = tabs[i];
+      t.classList.toggle('active', t.dataset.tab === id);
+    }
   }
 
   function nextTab(){
-    const active = document.querySelector('.tab.active');
-    if(!active) return;
-    const current = active.getAttribute('data-tab');
+    const activeTab = document.querySelector('.tab.active');
+    if(!activeTab) return;
+    const current = activeTab.dataset.tab;
     const idx = tabOrder.indexOf(current);
-    if(idx < tabOrder.length-1) showTab(tabOrder[idx+1]);
+    if(idx >= 0 && idx < tabOrder.length - 1){
+      showTab(tabOrder[idx+1]);
+    }
   }
 
   function prevTab(){
-    const active = document.querySelector('.tab.active');
-    if(!active) return;
-    const current = active.getAttribute('data-tab');
+    const activeTab = document.querySelector('.tab.active');
+    if(!activeTab) return;
+    const current = activeTab.dataset.tab;
     const idx = tabOrder.indexOf(current);
-    if(idx > 0) showTab(tabOrder[idx-1]);
+    if(idx > 0){
+      showTab(tabOrder[idx-1]);
+    }
   }
 
   function speak(text){
     if(!('speechSynthesis' in window)){
-      alert('Your browser does not support SpeechSynthesis audio.');
+      alert('SpeechSynthesis not supported in this browser.');
       return;
     }
     window.speechSynthesis.cancel();
@@ -785,90 +490,71 @@
   function applyVerbS(subject, verb){
     const s = subject.toLowerCase();
     if(s === 'he' || s === 'she' || s === 'it'){
-      if(verb === 'have lunch') return 'has lunch';
       if(verb === 'go') return 'goes';
-      if(verb.endsWith('y') && !/[aeiou]y
-$
-/.test(verb)){
-        return verb.slice(0,-1) + 'ies';
-      }
-      if(verb.endsWith('s') || verb.endsWith('sh') || verb.endsWith('ch') || verb.endsWith('x') || verb.endsWith('o')){
-        return verb + 'es';
-      }
       return verb + 's';
     }
     return verb;
   }
 
   function normalize(str){
-    return str
-      .toLowerCase()
-      .replace(/’/g,"'")
-      .replace(/\s+/g,' ')
-      .trim();
+    if(!str) return '';
+    // NO REGEX – only simple operations
+    let out = str.toLowerCase();
+    out = out.replace('.', '');     // remove ponto final
+    out = out.replace('  ', ' ');   // colapsa espaço duplo (uma vez)
+    out = out.replace('  ', ' ');   // repete para garantir
+    out = out.trim();
+    return out;
   }
 
-  function checkPractice(){
-    const subj = document.getElementById('p-subject').value;
-    const verb = document.getElementById('p-verb').value;
-    const place = document.getElementById('p-place').value;
-    const time = document.getElementById('p-time').value;
-    const sentenceInput = document.getElementById('p-sentence').value;
-    const feedback = document.getElementById('p-feedback');
+  function checkExercise(){
+    const subj = document.getElementById('ex-subject').value;
+    const verb = document.getElementById('ex-verb').value;
+    const place = document.getElementById('ex-place').value;
+    const time  = document.getElementById('ex-time').value;
+    const sentence = document.getElementById('ex-sentence').value;
+    const feedback = document.getElementById('ex-feedback');
 
-    if(!subj || !verb){
-      feedback.textContent = 'First choose subject and verb. Primeiro escolhe sujeito e verbo.';
+    if(!subj || !verb || !place || !time){
+      feedback.textContent = 'Escolha Subject, Verb, Place e Time.';
       feedback.style.color = '#ffe25f';
       return;
     }
-    if(!sentenceInput.trim()){
-      feedback.textContent = 'Now write your full sentence in the box. Agora escreve sua frase completa.';
+    if(!sentence || !sentence.trim()){
+      feedback.textContent = 'Agora escreve a frase completa em inglês.';
       feedback.style.color = '#ffe25f';
       return;
     }
 
     const verbForm = applyVerbS(subj, verb);
-    let parts = [subj, verbForm];
-    if(place) parts.push(place);
-    if(time) parts.push(time);
-    const target = parts.join(' ') + '.';
+    const target = subj + ' ' + verbForm + ' ' + place + ' ' + time + '.';
 
-    const user = normalize(sentenceInput.replace(/\.+
-$
-/,'') + '.');
-    const normTarget = normalize(target);
+    const userNorm = normalize(sentence);
+    const targetNorm = normalize(target);
 
-    if(user === normTarget){
-      feedback.textContent = `Perfect! "${target}" – Subject → Verb → Place → Time. Uma vez por todas ✅`;
+    if(userNorm === targetNorm){
+      feedback.textContent = 'Perfeito! "' + target + '" – Subject → Verb → Place → Time.';
       feedback.style.color = '#4dff9b';
     }else{
-      feedback.textContent = `Not yet. Think: ${target}  (confere ordem: S, V, lugar, tempo).`;
+      feedback.textContent = 'Quase. Modelo esperado: ' + target;
       feedback.style.color = '#ff8aa8';
     }
   }
 
   function copyToSpreadsheet(){
-    const text = collectLessonText();
+    const panels = document.querySelectorAll('.panel');
+    let text = '';
+    for(let i=0;i<panels.length;i++){
+      if(i>0) text += '\n\n-----------------------------\n\n';
+      text += panels[i].innerText.trim();
+    }
     if(!navigator.clipboard){
-      alert('Your browser does not allow automatic copying. Please select and copy manually.');
+      alert('Seu navegador não permite copiar automaticamente. Copie manualmente.');
       return;
     }
-    navigator.clipboard.writeText(text).then(()=>{
-      alert('Lesson content copied! Paste (Ctrl+V) into your spreadsheet.');
-    }).catch(()=>{
-      alert('Could not copy automatically. Please select and copy manually.');
-    });
-  }
-
-  function collectLessonText(){
-    const blocks = [];
-    document.querySelectorAll('.card-inner').forEach(inner=>{
-      const clone = inner.cloneNode(true);
-      clone.querySelectorAll('button').forEach(b=>b.remove());
-      clone.querySelectorAll('.pill-tag').forEach(p=>p.remove());
-      blocks.push(clone.innerText.trim());
-    });
-    return blocks.join('\n\n-----------------------------\n\n');
+    navigator.clipboard.writeText(text)
+      .then(function(){ alert('Conteúdo copiado. Cole (Ctrl+V) na planilha.'); })
+      .catch(function(){ alert('Copie manualmente (Ctrl+C).'); });
   }
 </script>
 </body>
